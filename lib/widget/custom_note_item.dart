@@ -5,11 +5,14 @@ import 'package:notes_app/model/note_model.dart';
 class CustomNoteItem extends StatelessWidget {
   const CustomNoteItem({
     Key? key,
-    required this.onPress, required this.model
+    required this.onPress,
+    required this.model,
+    required this.color
   }) : super(key: key);
 
   final Function() onPress;
   final NoteModel model ;
+  final Color color = const Color(0xffFFCC80);
 
   @override
   Widget build(BuildContext context) {

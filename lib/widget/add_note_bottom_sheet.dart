@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:notes_app/data/my_database.dart';
 import 'package:notes_app/model/note_model.dart';
+import 'package:notes_app/views/home_page.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({
@@ -9,6 +11,9 @@ class AddNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController titleController = TextEditingController();
+    TextEditingController subTitleController = TextEditingController();
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -25,6 +30,7 @@ class AddNoteBottomSheet extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16),
                 )
               ),
+              controller: titleController,
             ),
           ),
           Padding(
@@ -38,7 +44,9 @@ class AddNoteBottomSheet extends StatelessWidget {
                   width: 1,
                 ),
                 borderRadius: BorderRadius.circular(16),
-              )),
+              ),
+              ),
+              controller: subTitleController,
             ),
           ),
           Padding(
@@ -46,14 +54,25 @@ class AddNoteBottomSheet extends StatelessWidget {
             child: TextButton(
 
               onPressed: () {
-                MyDatabase db = MyDatabase();
-                db.insertNote(NoteModel(
-                    title: 'test',
-                    subTitle: 'test add to local data base ',
-                    date: '20 May 2022'
-                )
-                );
-
+                if(titleController.text.isEmpty || subTitleController.text.isEmpty){
+                  return;
+                }else {
+                  var formatter = DateFormat('dd-MM-yyyy');
+                  DateTime now = DateTime.now();
+                  String date = formatter.format(now);
+                  print(date);
+                  MyDatabase db = MyDatabase();
+                  db.insertNote(NoteModel(
+                      title: titleController.text,
+                      subTitle: subTitleController.text,
+                      date: date
+                  ));
+                  Navigator.push(
+                      context, MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  )
+                  );
+                }
               }, child: Text(
               'add',
             ),
