@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app/data/my_database.dart';
 import 'package:notes_app/widget/add_note_bottom_sheet.dart';
 import 'package:notes_app/widget/notes_view_body.dart';
 import 'package:flutter/widgets.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-
-  MyDatabase db = MyDatabase();
 
   @override
   Widget build(BuildContext context){

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/model/note_model.dart';
 
 class CustomNoteItem extends StatelessWidget {
@@ -7,12 +8,10 @@ class CustomNoteItem extends StatelessWidget {
     Key? key,
     required this.onPress,
     required this.model,
-    required this.color
   }) : super(key: key);
 
   final Function() onPress;
   final NoteModel model ;
-  final Color color = const Color(0xffFFCC80);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,7 @@ class CustomNoteItem extends StatelessWidget {
         left: 18,
       ),
       decoration: BoxDecoration(
-        color: const Color(0xffFFCC80),
+        color: firstColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

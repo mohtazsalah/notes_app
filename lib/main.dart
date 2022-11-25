@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:notes_app/view_model/notes_view_model.dart';
 import 'package:notes_app/views/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => NotesViewModel()),
+        ],
+        child: const MyApp()
+      )
+  );
 }
 
 class MyApp extends StatelessWidget {

@@ -6,6 +6,7 @@ import 'package:sqflite/sqflite.dart';
 class MyDatabase {
 
   static Database? _db ;
+
   Future<Database?> get db async {
     if(_db == null){
       _db = await initialDb();

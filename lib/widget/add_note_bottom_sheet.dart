@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notes_app/data/my_database.dart';
 import 'package:notes_app/model/note_model.dart';
-import 'package:notes_app/views/home_page.dart';
+import 'package:notes_app/view_model/notes_view_model.dart';
+import 'package:provider/provider.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({
@@ -11,6 +11,7 @@ class AddNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<NotesViewModel>(context);
     TextEditingController titleController = TextEditingController();
     TextEditingController subTitleController = TextEditingController();
 
@@ -22,14 +23,13 @@ class AddNoteBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.lightBlueAccent,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                )
-              ),
+                  enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(
+                  color: Colors.lightBlueAccent,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              )),
               controller: titleController,
             ),
           ),
@@ -38,13 +38,13 @@ class AddNoteBottomSheet extends StatelessWidget {
             child: TextFormField(
               maxLines: 4,
               decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.lightBlueAccent,
-                  width: 1,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.lightBlueAccent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                borderRadius: BorderRadius.circular(16),
-              ),
               ),
               controller: subTitleController,
             ),
@@ -52,30 +52,32 @@ class AddNoteBottomSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-
               onPressed: () {
-                if(titleController.text.isEmpty || subTitleController.text.isEmpty){
+                if (titleController.text.isEmpty ||
+                    subTitleController.text.isEmpty) {
                   return;
-                }else {
+                } else {
                   var formatter = DateFormat('dd-MM-yyyy');
                   DateTime now = DateTime.now();
                   String date = formatter.format(now);
                   print(date);
-                  MyDatabase db = MyDatabase();
-                  db.insertNote(NoteModel(
+                  provider.addItem(NoteModel(
                       title: titleController.text,
                       subTitle: subTitleController.text,
-                      date: date
-                  ));
-                  Navigator.push(
-                      context, MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  )
-                  );
+                      date: date));
+                  Navigator.of(context).pop();
+                  // MyDatabase db = MyDatabase();
+                  // db.insertNote(NoteModel(
+                  //     title: titleController.text,
+                  //     subTitle: subTitleController.text,
+                  //     date: date
+                  // ));
+
                 }
-              }, child: Text(
-              'add',
-            ),
+              },
+              child: Text(
+                'add',
+              ),
             ),
           ),
         ],
