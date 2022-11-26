@@ -11,7 +11,7 @@ class AddNoteBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NotesViewModel>(context);
+    final provider = Provider.of<NotesViewModel>(context , listen: false);
     TextEditingController titleController = TextEditingController();
     TextEditingController subTitleController = TextEditingController();
 
@@ -65,14 +65,7 @@ class AddNoteBottomSheet extends StatelessWidget {
                       title: titleController.text,
                       subTitle: subTitleController.text,
                       date: date));
-                  Navigator.of(context).pop();
-                  // MyDatabase db = MyDatabase();
-                  // db.insertNote(NoteModel(
-                  //     title: titleController.text,
-                  //     subTitle: subTitleController.text,
-                  //     date: date
-                  // ));
-
+                  Navigator.pop(context);
                 }
               },
               child: Text(

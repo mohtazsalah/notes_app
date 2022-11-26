@@ -22,7 +22,7 @@ class MyDatabase {
     Database myDb = await openDatabase(
       path ,
       onCreate: _onCreate ,
-      version: 1 ,
+      version: 2 ,
       onUpgrade: _onUpgrade
     );
     return myDb;
@@ -49,8 +49,11 @@ class MyDatabase {
 
   insertData(String sql) async {
     Database? myDb = await db ;
-    int response = await myDb!.rawInsert(sql);
-    return response;
+    await myDb!.transaction((txn) async {
+      int response = await txn.rawInsert(sql);
+      return response;
+    });
+    // int response = await myDb!.rawInsert(sql);
   }
 
   updateData(String sql) async {
@@ -66,7 +69,7 @@ class MyDatabase {
   }
 
 
-  Future<void> insertNote(NoteModel model) async {
+  insertNote(NoteModel model) async {
     Database? myDb = await db ;
     await myDb!.insert(
       'notes',
@@ -75,15 +78,24 @@ class MyDatabase {
     );
   }
 
+  deleteNote(NoteModel model) async {
+    Database? myDb = await db ;
+    await myDb!.delete(
+      'notes',
+      where: 'id = ${model.id}',
+      whereArgs: ['id']
+    );
+  }
+
 
   Future<List<NoteModel>> notes() async {
     // Get a reference to the database.
     Database? myDb = await db ;
 
-    // Query the table for all The Dogs.
+    // Query the table for all The notes.
     final List<Map<String, dynamic>> maps = await myDb!.query('notes');
 
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    // Convert the List<Map<String, dynamic> into a List<note>.
     return List.generate(maps.length, (i) {
       return NoteModel(
         id: maps[i]['id'],

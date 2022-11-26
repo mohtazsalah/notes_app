@@ -8,7 +8,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: (){
@@ -21,7 +20,7 @@ class HomePage extends StatelessWidget {
             ),
               context: context,
               builder: (context) {
-                return const AddNoteBottomSheet();
+                return AddNoteBottomSheet();
               }
           );
         } ,

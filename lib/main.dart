@@ -8,7 +8,7 @@ void main() {
   runApp(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => NotesViewModel()),
+          ChangeNotifierProvider(create: (context) => NotesViewModel()),
         ],
         child: const MyApp()
       )
