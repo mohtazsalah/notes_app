@@ -24,12 +24,20 @@ class AddNoteBottomSheet extends StatelessWidget {
             child: TextFormField(
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(
-                  color: Colors.lightBlueAccent,
-                  width: 1,
+                    borderSide: const BorderSide(
+                      color: Colors.lightBlueAccent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.lightBlueAccent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
                 ),
-                borderRadius: BorderRadius.circular(16),
-              )),
+              ),
               controller: titleController,
             ),
           ),
@@ -39,6 +47,13 @@ class AddNoteBottomSheet extends StatelessWidget {
               maxLines: 4,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.lightBlueAccent,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: Colors.lightBlueAccent,
                     width: 1,
